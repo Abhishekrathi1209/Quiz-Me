@@ -36,6 +36,7 @@ function HomePage() {
 
         try {
             const endpoint = file && text ? 'http://localhost:5000/api/submit-mixed' : (file ? 'http://localhost:5000/api/submit-file' : 'http://localhost:5000/api/submit-text');
+
             console.log("Endpoint is ", endpoint);
             const response = await axios.post(endpoint, formData, {
                 headers: { 'Content-Type': 'multipart/form-data' }
@@ -46,7 +47,6 @@ function HomePage() {
             navigate('/quiz', { state: { questions: JSON.parse(response.data) } });
         } catch (error) {
             setLoading(false)
-            console.log("idhr aa gya hun")
             console.error(error);
         }
     };
@@ -61,7 +61,7 @@ function HomePage() {
             </p>
             <textarea value={text} onChange={handleTextChange} placeholder="Enter your text here..." />
             <p>OR</p>
-            <input type="file" onChange={handleFileChange} />
+            <input type="file" onChange={handleFileChange} accept=".pdf" />
             <select value={difficulty} onChange={(e) => setDifficulty(e.target.value)}>
                 <option value="easy">Easy</option>
                 <option value="medium">Medium</option>

@@ -21,7 +21,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Endpoint to handle text input
 app.post('/api/submit-text', upload.none(), async (req, res) => {
-
+    
     const { text, difficulty, numQuestions } = req.body;
 
     try {
@@ -86,7 +86,6 @@ app.post('/api/submit-file', upload.single('file'), async (req, res) => {
             { text: prompt }
         ]);
 
-        // Clean up uploaded file
         fs.unlinkSync(filePath);
 
 
@@ -104,6 +103,7 @@ app.post('/api/submit-mixed', upload.single('file'), async (req, res) => {
     const filePath = req.file.path;
 
     try {
+
         const fileResult = await fileManager.uploadFile(filePath, {
             mimeType: req.file.mimetype,
             displayName: req.file.originalname,
@@ -135,7 +135,7 @@ app.post('/api/submit-mixed', upload.single('file'), async (req, res) => {
         ]);
 
         // Clean up uploaded file
-        fs.unlinkSync(filePath);
+        // fs.unlinkSync(filePath);
 
 
         res.json(result.response.text());
